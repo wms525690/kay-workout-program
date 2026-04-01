@@ -1383,6 +1383,7 @@ body.app-locked .exercise-note-btn {
 }
 
 body.app-locked .rating-btn,
+body.app-locked .set-weight,
 body.app-locked .set-reps,
 body.app-locked .set-time,
 body.app-locked #modalNoteInput,

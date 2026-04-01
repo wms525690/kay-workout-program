@@ -267,6 +267,7 @@
   var ratingButtons = document.querySelectorAll('.rating-btn');
   var setRepsInputs = document.querySelectorAll('.set-reps');
   var setTimeInputs = document.querySelectorAll('.set-time');
+  var setWeightInputs = document.querySelectorAll('.set-weight');
   var activeExerciseId = null;
   var activeRating = null;
 
@@ -285,6 +286,7 @@
       var sets = actual.sets || [];
       setRepsInputs.forEach(function (input, i) { input.value = (sets[i] && sets[i].reps) || ''; });
       setTimeInputs.forEach(function (input, i) { input.value = (sets[i] && sets[i].time) || ''; });
+      setWeightInputs.forEach(function (input, i) { input.value = (sets[i] && sets[i].weight) || ''; });
 
       ratingButtons.forEach(function (rb) {
         rb.classList.toggle('selected', rb.dataset.rating === activeRating);
@@ -330,7 +332,8 @@
     setRepsInputs.forEach(function (input, i) {
       var r = input.value ? parseInt(input.value, 10) : null;
       var t = setTimeInputs[i].value ? parseInt(setTimeInputs[i].value, 10) : null;
-      sets.push({ reps: r, time: t });
+      var w = setWeightInputs[i] && setWeightInputs[i].value ? parseInt(setWeightInputs[i].value, 10) : null;
+      sets.push({ weight: w, reps: r, time: t });
     });
     state.actuals[activeExerciseId] = { sets: sets };
 
@@ -340,7 +343,7 @@
     var card = document.querySelector('[data-id="' + activeExerciseId + '"]');
     if (card) {
       var noteBtn = card.querySelector('.exercise-note-btn');
-      var hasSetData = sets.some(function (s) { return s.reps || s.time; });
+      var hasSetData = sets.some(function (s) { return s.weight || s.reps || s.time; });
       noteBtn.classList.toggle('has-note', noteText.length > 0 || !!activeRating || hasSetData);
     }
 
